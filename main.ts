@@ -1,11 +1,13 @@
 gamePad.onEvent(GamerBitPin.P14, GamerBitEvent.Down, function () {
-    if (item.get(LedSpriteProperty.X) == 0) {
-        gamePad.vibratorMotor(gamePad.Vibrator.V1)
-        life += -1
-        basic.pause(200)
-        gamePad.vibratorMotor(gamePad.Vibrator.V0)
-    } else {
-        item.change(LedSpriteProperty.X, -1)
+    if (started == 1) {
+        if (item.get(LedSpriteProperty.X) == 0) {
+            gamePad.vibratorMotor(gamePad.Vibrator.V1)
+            life += -1
+            basic.pause(200)
+            gamePad.vibratorMotor(gamePad.Vibrator.V0)
+        } else {
+            item.change(LedSpriteProperty.X, -1)
+        }
     }
 })
 input.onButtonPressed(Button.A, function () {
@@ -20,35 +22,40 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 gamePad.onEvent(GamerBitPin.P15, GamerBitEvent.Down, function () {
-    if (item.get(LedSpriteProperty.X) == 4) {
-        gamePad.vibratorMotor(gamePad.Vibrator.V1)
-        life += -1
-        basic.pause(200)
-        gamePad.vibratorMotor(gamePad.Vibrator.V0)
-    } else {
-        item.change(LedSpriteProperty.X, 1)
+    if (started == 1) {
+        if (item.get(LedSpriteProperty.X) == 4) {
+            gamePad.vibratorMotor(gamePad.Vibrator.V1)
+            life += -1
+            basic.pause(200)
+            gamePad.vibratorMotor(gamePad.Vibrator.V0)
+        } else {
+            item.change(LedSpriteProperty.X, 1)
+        }
     }
 })
 gamePad.onEvent(GamerBitPin.P13, GamerBitEvent.Down, function () {
-    if (item.get(LedSpriteProperty.Y) == 4) {
-        gamePad.vibratorMotor(gamePad.Vibrator.V1)
-        life += -1
-        basic.pause(200)
-        gamePad.vibratorMotor(gamePad.Vibrator.V0)
-    } else {
-        item.change(LedSpriteProperty.Y, 1)
+    if (started == 1) {
+        if (item.get(LedSpriteProperty.Y) == 4) {
+            gamePad.vibratorMotor(gamePad.Vibrator.V1)
+            life += -1
+            basic.pause(200)
+            gamePad.vibratorMotor(gamePad.Vibrator.V0)
+        } else {
+            item.change(LedSpriteProperty.Y, 1)
+        }
     }
 })
 gamePad.onEvent(GamerBitPin.P8, GamerBitEvent.Down, function () {
-    if (item.get(LedSpriteProperty.Y) == 0) {
-        gamePad.vibratorMotor(gamePad.Vibrator.V1)
-        life += -1
-        basic.pause(200)
-        gamePad.vibratorMotor(gamePad.Vibrator.V0)
-    } else {
-        item.change(LedSpriteProperty.Y, -1)
+    if (started == 1) {
+        if (item.get(LedSpriteProperty.Y) == 0) {
+            gamePad.vibratorMotor(gamePad.Vibrator.V1)
+            life += -1
+            basic.pause(200)
+            gamePad.vibratorMotor(gamePad.Vibrator.V0)
+        } else {
+            item.change(LedSpriteProperty.Y, -1)
+        }
     }
-    music.playTone(587, music.beat(BeatFraction.Eighth))
 })
 input.onButtonPressed(Button.B, function () {
     basic.showString("" + (score))
@@ -63,7 +70,7 @@ music.setVolume(64)
 basic.showString("Pres A to start game")
 started = 0
 basic.forever(function () {
-    if (!(item.isDeleted())) {
+    if (started == 1) {
         if (item.isTouching(food)) {
             score += 1
             food.delete()
@@ -72,8 +79,6 @@ basic.forever(function () {
             gamePad.vibratorMotor(gamePad.Vibrator.V0)
             food = game.createSprite(randint(0, 4), randint(0, 4))
         }
-    }
-    if (!(food.isDeleted())) {
         if (life < 1) {
             food.delete()
             item.delete()
@@ -85,7 +90,7 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (!(food.isDeleted())) {
+    if (started == 1) {
         led.plotBrightness(food.get(LedSpriteProperty.X), food.get(LedSpriteProperty.Y), 0)
         basic.pause(500)
         led.plotBrightness(food.get(LedSpriteProperty.X), food.get(LedSpriteProperty.Y), 255)
