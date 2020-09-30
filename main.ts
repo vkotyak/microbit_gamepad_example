@@ -1,5 +1,12 @@
 gamePad.onEvent(GamerBitPin.P14, GamerBitEvent.Down, function () {
-    item.change(LedSpriteProperty.X, -1)
+    if (item.get(LedSpriteProperty.X) == 0) {
+        gamePad.vibratorMotor(gamePad.Vibrator.V1)
+        life += -1
+        basic.pause(200)
+        gamePad.vibratorMotor(gamePad.Vibrator.V0)
+    } else {
+        item.change(LedSpriteProperty.X, -1)
+    }
 })
 input.onButtonPressed(Button.A, function () {
     basic.clearScreen()
@@ -13,10 +20,24 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 gamePad.onEvent(GamerBitPin.P15, GamerBitEvent.Down, function () {
-    item.change(LedSpriteProperty.X, 1)
+    if (item.get(LedSpriteProperty.X) == 4) {
+        gamePad.vibratorMotor(gamePad.Vibrator.V1)
+        life += -1
+        basic.pause(200)
+        gamePad.vibratorMotor(gamePad.Vibrator.V0)
+    } else {
+        item.change(LedSpriteProperty.X, 1)
+    }
 })
 gamePad.onEvent(GamerBitPin.P13, GamerBitEvent.Down, function () {
-    item.change(LedSpriteProperty.Y, 1)
+    if (item.get(LedSpriteProperty.Y) == 4) {
+        gamePad.vibratorMotor(gamePad.Vibrator.V1)
+        life += -1
+        basic.pause(200)
+        gamePad.vibratorMotor(gamePad.Vibrator.V0)
+    } else {
+        item.change(LedSpriteProperty.Y, 1)
+    }
 })
 gamePad.onEvent(GamerBitPin.P8, GamerBitEvent.Down, function () {
     if (item.get(LedSpriteProperty.Y) == 0) {
@@ -42,13 +63,15 @@ music.setVolume(64)
 basic.showString("Pres A to start game")
 started = 0
 basic.forever(function () {
-    if (item.isTouching(food)) {
-        score += 1
-        food.delete()
-        gamePad.vibratorMotor(gamePad.Vibrator.V1)
-        basic.pause(500)
-        gamePad.vibratorMotor(gamePad.Vibrator.V0)
-        food = game.createSprite(randint(0, 4), randint(0, 4))
+    if (!(item.isDeleted())) {
+        if (item.isTouching(food)) {
+            score += 1
+            food.delete()
+            gamePad.vibratorMotor(gamePad.Vibrator.V1)
+            basic.pause(500)
+            gamePad.vibratorMotor(gamePad.Vibrator.V0)
+            food = game.createSprite(randint(0, 4), randint(0, 4))
+        }
     }
     if (!(food.isDeleted())) {
         if (life < 1) {
