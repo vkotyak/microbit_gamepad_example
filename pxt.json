@@ -1,0 +1,22 @@
+{
+    "name": "gamepad",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "gamePad": "github:dfrobot/pxt-gamepad#v1.1.0"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "main.py"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
